@@ -1,31 +1,31 @@
-const express = require("express");
+const express = require('express')
 
-const { ctrlWrapper, validation, auth, upload } = require("../../middlewares");
-const { joiUserSchema, joiSchemaSub } = require("../../models/user");
-const { users: ctrl } = require("../../controllers");
+const { ctrlWrapper, validation, auth, upload } = require('../../middlewares')
+const { joiUserSchema, joiSchemaSub } = require('../../models/user')
+const { users: ctrl } = require('../../controllers')
 
-const router = express.Router();
+const router = express.Router()
 
-router.post("/signup", validation(joiUserSchema), ctrlWrapper(ctrl.signup));
+router.post('/signup', validation(joiUserSchema), ctrlWrapper(ctrl.signup))
 
-router.post("/login", validation(joiUserSchema), ctrlWrapper(ctrl.login));
+router.post('/login', validation(joiUserSchema), ctrlWrapper(ctrl.login))
 
-router.get("/logout", auth, ctrlWrapper(ctrl.logout));
+router.get('/logout', auth, ctrlWrapper(ctrl.logout))
 
-router.get("/current", auth, ctrlWrapper(ctrl.current));
+router.get('/current', auth, ctrlWrapper(ctrl.current))
 
 router.patch(
-  "/",
+  '/',
   auth,
   validation(joiSchemaSub),
   ctrlWrapper(ctrl.updateSubscription)
-);
+)
 
 router.patch(
-  "/avatars",
+  '/avatars',
   auth,
-  upload.single("avatar"),
+  upload.single('avatar'),
   ctrlWrapper(ctrl.updateAvatar)
-);
+)
 
-module.exports = { usersRouter: router };
+module.exports = { usersRouter: router }
